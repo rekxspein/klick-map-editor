@@ -7,21 +7,12 @@
 #root {
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: flex-start;
-  flex-direction: column;
   gap: 1em;
   font-family: sans-serif;
   color: #333;
-  background-color: #f8e2cf;
-}
-
-/* height of the container */
-.leaflet-container {
-  margin-top: 30px;
-  height: 80vh;
-  width: 95vw;
-  border-radius: 1rem;
+  background-color: #dfeff5;
 }
 
 .cluster-icon {
