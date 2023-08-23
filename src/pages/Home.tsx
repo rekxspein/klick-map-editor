@@ -15,17 +15,21 @@ function Home() {
       weight: 5,
       dashArray: "3",
       fillOpacity: 0.7,
+      iD: 2,
+      className: "test",
     });
   };
 
   const resetHighlight = (e: LeafletEvent) => {
     const layer = e.target;
-
-    layer.setStyle({
-      weight: 3,
-      dashArray: "",
-      fillOpacity: 0.2,
-    });
+    e.target.setStyle(layer.setStyle(e.target.feature));
+    console.log("ASDSD", e.target.feature);
+    // layer.setStyle({
+    //   weight: 3,
+    //   dashArray: "6",
+    //   fillOpacity: 0.2,
+    //   className: "test123",
+    // });
   };
 
   const onEachFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
@@ -39,7 +43,7 @@ function Home() {
   };
 
   return (
-    <>
+    <div>
       <MapContainer
         style={{
           margin: "30px",
@@ -61,7 +65,7 @@ function Home() {
           onEachFeature={onEachFeature}
         />
       </MapContainer>
-    </>
+    </div>
   );
 }
 
