@@ -3,7 +3,7 @@ import { MapContainer as LeafletMap, GeoJSON } from "react-leaflet";
 import { districtData } from "../assets/manipur-districts";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { GeoJSON as GeoJSONType } from "geojson";
+import { Feature, GeoJSON as GeoJSONType } from "geojson";
 import { ChromePicker, Color } from "react-color";
 
 function CustomMap() {
@@ -18,38 +18,37 @@ function CustomMap() {
   const [showColorPicker, setshowColorPicker] = useState(false);
   const [currentDist, setCurrentDist] = useState("");
   const [districtColors, setDistrictColors] = useState<{
-    [key: string]: Color;
+    [key: string]: { color: string; link: string };
   }>({});
   const [pickerPosition, setpickerPosition] = useState<{
     left: any;
     top: any;
   }>();
-  console.log("DistricColll", districtColors);
+
   function getColor(districtName: string) {
-    return districtColors[districtName] || "teal";
+    return districtColors[districtName]?.color || "#00abab";
   }
 
   //this defines the final style
-  function style(feature: any) {
+  function style(feature: Feature) {
     return {
-      fillColor: getColor(feature?.properties.Dist_Name),
+      fillColor: getColor(feature?.properties?.Dist_Name),
       weight: 1,
       opacity: 1,
       color: "white",
       dashArray: "3",
       fillOpacity: 0.7,
-      className: feature?.properties.Dist_Name,
+      className: feature?.properties?.Dist_Name,
     };
   }
 
   function coloringFeature(e: any) {
     const districtName = e.target.feature.properties.Dist_Name;
     setCurrentDist(districtName);
-    // setshowColorPicker((showColorPicker) => !showColorPicker);
     setshowColorPicker(true);
+
     const mouseX = e.originalEvent.clientX;
     const mouseY = e.originalEvent.clientY;
-    console.log("Mouse", mouseX);
 
     const pickerPosition = {
       left: mouseX + 60, // Adjust this value for horizontal positioning
@@ -79,7 +78,6 @@ function CustomMap() {
       province: "",
       count: 0,
     });
-    // e.target.setStyle(style(e.target.feature));
   }
   function onEachFeature(_feature: any, layer: any) {
     layer.on({
@@ -92,8 +90,8 @@ function CustomMap() {
     <div
       style={{
         margin: "30px",
-        height: "80vh",
-        width: "95vh",
+        height: "100vh",
+        width: "100vh",
         borderRadius: "1rem",
       }}
     >
@@ -142,7 +140,11 @@ function CustomMap() {
             onChange={(newColor) => {
               setColor(newColor.hex);
               const updatedColors = { ...districtColors };
-              updatedColors[currentDist] = newColor.hex;
+              console.log(updatedColors);
+              updatedColors[currentDist] = {
+                color: newColor.hex,
+                link: "http://google.com",
+              }; //setting
               setDistrictColors(updatedColors);
             }}
           />

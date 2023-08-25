@@ -6,7 +6,6 @@ import CustomMap from "./pages/Map";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    {/* <Home /> */}
     <CustomMap />
   </React.StrictMode>
 );
