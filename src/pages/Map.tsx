@@ -20,7 +20,11 @@ function CustomMap() {
   const [districtColors, setDistrictColors] = useState<{
     [key: string]: Color;
   }>({});
-
+  const [pickerPosition, setpickerPosition] = useState<{
+    left: any;
+    top: any;
+  }>();
+  console.log("DistricColll", districtColors);
   function getColor(districtName: string) {
     return districtColors[districtName] || "teal";
   }
@@ -43,6 +47,15 @@ function CustomMap() {
     setCurrentDist(districtName);
     // setshowColorPicker((showColorPicker) => !showColorPicker);
     setshowColorPicker(true);
+    const mouseX = e.originalEvent.clientX;
+    const mouseY = e.originalEvent.clientY;
+    console.log("Mouse", mouseX);
+
+    const pickerPosition = {
+      left: mouseX + 60, // Adjust this value for horizontal positioning
+      top: mouseY + 80, // Adjust this value for vertical positioning
+    };
+    setpickerPosition(pickerPosition);
   }
 
   function highlightFeature(e: any) {
@@ -56,12 +69,7 @@ function CustomMap() {
       province: `${NAME_3} District, ${NAME_2}`,
       count: COUNT,
     });
-    // layer.setStyle({
-    //   weight: 2,
-    //   color: "#DF1995",
-    //   dashArray: "",
-    //   fillOpacity: 1,
-    // });
+
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
     }
@@ -121,15 +129,30 @@ function CustomMap() {
         </LeafletMap>
       </div>
       {showColorPicker && (
-        <ChromePicker
-          color={color}
-          onChange={(newColor) => {
-            setColor(newColor.hex);
-            const updatedColors = { ...districtColors };
-            updatedColors[currentDist] = newColor.hex;
-            setDistrictColors(updatedColors);
+        <div
+          className="color-picker-container"
+          style={{
+            position: "absolute",
+            left: pickerPosition?.left,
+            top: pickerPosition?.top,
           }}
-        />
+        >
+          <ChromePicker
+            color={color}
+            onChange={(newColor) => {
+              setColor(newColor.hex);
+              const updatedColors = { ...districtColors };
+              updatedColors[currentDist] = newColor.hex;
+              setDistrictColors(updatedColors);
+            }}
+          />
+          <div
+            className="close-button"
+            onClick={() => setshowColorPicker(false)}
+          >
+            <span className="close-icon">×</span>
+          </div>
+        </div>
       )}
     </div>
   );
