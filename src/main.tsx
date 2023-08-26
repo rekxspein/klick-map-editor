@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./main.css";
-// import Home from "./pages/Home";
-import CustomMap from "./pages/Map";
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import Page from "./Page";
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <CustomMap />
+    <Page />
   </React.StrictMode>
 );
