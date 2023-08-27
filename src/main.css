@@ -4,11 +4,29 @@
   padding: 0;
 }
 
+.landing-page {
+  text-align: center;
+  padding: 50px;
+}
+
+.map-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.map-images img {
+  max-width: 500px;
+  height: 300px;
+}
+
 #root {
   height: 100vh;
   display: flex;
-  align-items: left;
-  justify-content: flex-start;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
   gap: 1em;
   font-family: sans-serif;
   color: #333;
@@ -110,4 +128,23 @@
 .close-icon {
   color: white;
   font-size: 16px;
+}
+
+.simple-button {
+  display: inline-block;
+  margin: 20px;
+  background-color: #0759b1;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-button:hover {
+  background-color: #021120;
 }

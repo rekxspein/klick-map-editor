@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 import { Feature, GeoJSON as GeoJSONType } from "geojson";
 import { ChromePicker, Color } from "react-color";
 
-function CustomMap() {
+function MapEditor() {
   const [selected, setSelected] = useState<{
     province: string;
     count: number;
@@ -111,7 +111,7 @@ function CustomMap() {
         )}
         <LeafletMap
           style={{ width: "100%", height: "100%" }}
-          zoom={8}
+          zoom={9}
           zoomControl={true}
           scrollWheelZoom={false}
           maxZoom={12}
@@ -160,4 +160,4 @@ function CustomMap() {
   );
 }
 
-export default CustomMap;
+export default MapEditor;

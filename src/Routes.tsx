@@ -1,7 +1,9 @@
 import { FC, ReactNode, useMemo } from "react";
 import { Navigate, Route, Routes as RouterRoutes } from "react-router-dom";
 import { joinPaths } from "./utils";
-import CustomMap from "./pages/Map";
+import LandingPage from "./pages/LandingPage";
+import MapEditor from "./pages/MapEditor";
+import GeoJSONSelectionPage from "./pages/SelectionPage";
 
 const Routes: FC = () => {
   const routes = useMemo(() => {
@@ -23,7 +25,17 @@ const Routes: FC = () => {
 
 const ROUTES: IRoute = {
   path: "/",
-  component: <CustomMap />,
+  component: <LandingPage />,
+  children: [
+    {
+      path: "/select",
+      component: <GeoJSONSelectionPage />,
+    },
+    {
+      path: "/editor",
+      component: <MapEditor />,
+    },
+  ],
 };
 
 const parseRoutes = (
