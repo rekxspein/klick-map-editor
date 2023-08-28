@@ -5,6 +5,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Feature, GeoJSON as GeoJSONType } from "geojson";
 import { ChromePicker, Color } from "react-color";
+import { useLinkStore } from "../store";
 
 function MapEditor() {
   const [selected, setSelected] = useState<{
@@ -24,6 +25,8 @@ function MapEditor() {
     left: any;
     top: any;
   }>();
+  // const cuurentLink = useLinkStore((state: any) => state.link);
+  const { link, setLink } = useLinkStore();
 
   function getColor(districtName: string) {
     return districtColors[districtName]?.color || "#00abab";
@@ -135,6 +138,21 @@ function MapEditor() {
             top: pickerPosition?.top,
           }}
         >
+          <div className="mui-input">
+            <input
+              type="url"
+              value={link}
+              id="link-input"
+              className="mui-input__field"
+              placeholder="paste your link"
+              onChange={(e) => {
+                setLink(e.target.value);
+              }}
+            />
+            <label htmlFor="link-input" className="mui-input__label">
+              Add Link
+            </label>
+          </div>
           <ChromePicker
             color={color}
             onChange={(newColor) => {
@@ -143,7 +161,7 @@ function MapEditor() {
               console.log(updatedColors);
               updatedColors[currentDist] = {
                 color: newColor.hex,
-                link: "http://google.com",
+                link: link,
               }; //setting
               setDistrictColors(updatedColors);
             }}
